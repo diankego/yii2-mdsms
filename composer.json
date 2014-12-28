@@ -1,0 +1,24 @@
+{
+	"name": "diankego/yii2-smsMD",
+	"description": "sms(MD) api",
+	"keywords": ["yii2", "diankego", "sms", "MD"],
+	"type": "yii2-extension",
+	"license": "BSD-3-Clause",
+	"support": {
+		"issues": "https://github.com/diankego/yii2-smsMD/issues",
+		"wiki": "https://github.com/diankego/yii2-smsMD/wiki",
+		"source": "https://github.com/diankego/yii2-smsMD"
+	},
+	"authors": [
+		{
+			"name": "xiewulong",
+			"email": "xiewulong@vip.qq.com"
+		}
+    ],
+    "require": {
+        "yiisoft/yii2": "*"
+    },
+	"autoload": {
+		"psr-4": {"yii\\smsMD\\": ""}
+	}
+}
