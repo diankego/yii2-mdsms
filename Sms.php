@@ -14,7 +14,7 @@ namespace yii\smsMD;
 use Yii;
 use yii\base\InvalidValueException;
 
-class sms{
+class Sms{
 
 	//接口地址
 	private $api = 'http://sdk.entinfo.cn:8061/webservice.asmx/mdsmssend';
