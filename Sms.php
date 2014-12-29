@@ -5,7 +5,7 @@
  * https://github.com/diankego/yii2-smsMD
  * https://raw.githubusercontent.com/diankego/yii2-smsMD/master/LICENSE
  * create: 2014/12/28
- * update: 2014/12/28
+ * update: 2014/12/29
  * version: 1.0.0
  */
 
@@ -79,7 +79,7 @@ class Sms{
 	 * @method send
 	 * @since 1.0.0
 	 * @param {string} $query query string
-	 * @return {none}
+	 * @return {string}
 	 */
 	private function completeParams($query){
 		return $query . '&ext=' . $this->ext . '&stime=' . $this->stime . '&rrid=' . $this->rrid . '&msgfmt=' . $this->msgfmt;
