@@ -9,7 +9,7 @@
  * version: 1.0.0
  */
 
-namespace yii\smsMD;
+namespace yii\mdsms;
 
 use Yii;
 use yii\base\InvalidValueException;

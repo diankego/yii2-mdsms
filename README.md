@@ -1,2 +1,2 @@
-yii2-smsMD
+yii2-mdsms
 ==========
