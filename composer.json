@@ -1,13 +1,13 @@
 {
-	"name": "diankego/yii2-smsMD",
-	"description": "sms(MD) api",
-	"keywords": ["yii2", "diankego", "sms", "MD"],
+	"name": "diankego/yii2-sms-md",
+	"description": "sms(md) api",
+	"keywords": ["yii2", "diankego", "sms", "md"],
 	"type": "yii2-extension",
 	"license": "MIT",
 	"support": {
-		"issues": "https://github.com/diankego/yii2-smsMD/issues",
-		"wiki": "https://github.com/diankego/yii2-smsMD/wiki",
-		"source": "https://github.com/diankego/yii2-smsMD"
+		"issues": "https://github.com/diankego/yii2-sms-md/issues",
+		"wiki": "https://github.com/diankego/yii2-sms-md/wiki",
+		"source": "https://github.com/diankego/yii2-sms-md"
 	},
 	"authors": [
 		{
@@ -19,6 +19,6 @@
         "yiisoft/yii2": "*"
     },
 	"autoload": {
-		"psr-4": {"yii\\smsMD\\": ""}
+		"psr-4": {"yii\\sms-md\\": ""}
 	}
 }
