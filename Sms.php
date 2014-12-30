@@ -11,8 +11,7 @@
 
 namespace yii\mdsms;
 
-use Yii;
-use yii\base\InvalidValueException;
+use yii\base\ErrorException;
 
 class Sms{
 
@@ -43,19 +42,21 @@ class Sms{
 	//密码, md5(sn + password)32位大写密文
 	private $pwd = false;
 
+	//提示信息
+	private $messages = false;
+
 	/**
 	 * 发送
 	 * @method send
-	 * @since 1.0.0
+	 * @since 0.0.1
 	 * @param {array} $data 发送所需数据, 格式: ['手机号' => '内容']
 	 * @return {array}
 	 * @example Yii::$app->sms->send();
 	 */
 	public function send($data){
 		if(empty($data)){
-			throw new InvalidValueException('You must specify the need to send a mobile phone number and content');
+			throw new ErrorException('Mobile and content must be required');
 		}
-		$message = require(__DIR__ . '/message.php');
 		foreach($data as $mobile => $content){
 			$_mobile = $this->formatMobile($mobile);
 			$this->data[$mobile] = [
@@ -69,7 +70,7 @@ class Sms{
 				'content' => $content,
 				'sendtime' => time(),
 			];
-			$this->data[$mobile]['message'] = $message[$this->data[$mobile]['status']];
+			$this->data[$mobile]['message'] = $this->getMessage($this->data[$mobile]['status']);
 		}
 		return $this->data;
 	}
@@ -77,7 +78,7 @@ class Sms{
 	/**
 	 * 完善参数
 	 * @method send
-	 * @since 1.0.0
+	 * @since 0.0.1
 	 * @param {string} $query query string
 	 * @return {string}
 	 */
@@ -88,7 +89,7 @@ class Sms{
 	/**
 	 * 格式化手机号码
 	 * @method formatMobile
-	 * @since 1.0.0
+	 * @since 0.0.1
 	 * @param {string} $mobile 手机号
 	 * @return {string}
 	 */
@@ -106,7 +107,7 @@ class Sms{
 	/**
 	 * 获取密码
 	 * @method getPwd
-	 * @since 1.0.0
+	 * @since 0.0.1
 	 * @return {string}
 	 */
 	private function getPwd(){
@@ -118,9 +119,23 @@ class Sms{
 	}
 
 	/**
+	 * 获取信息
+	 * @method getMessage
+	 * @since 0.0.1
+	 * @return {string}
+	 */
+	private function getMessage($status){
+		if($this->messages === false){
+			$this->messages = require(__DIR__ . '/messages.php');
+		}
+
+		return isset($this->messages[$status]) ? $this->messages[$status] : '';
+	}
+
+	/**
 	 * curl远程获取数据方法
 	 * @method curl
-	 * @since 1.0.0
+	 * @since 0.0.1
 	 * @param {string} $url 请求地址
 	 * @param {array|string} [$data=null] post数据
 	 * @param {string} [$useragent=null] 模拟浏览器用户代理信息
