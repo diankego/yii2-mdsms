@@ -5,8 +5,8 @@
  * https://github.com/diankego/yii2-smsMD
  * https://raw.githubusercontent.com/diankego/yii2-smsMD/master/LICENSE
  * create: 2014/12/28
- * update: 2014/12/29
- * version: 1.0.0
+ * update: 2014/12/30
+ * version: 0.0.1
  */
 
 namespace yii\mdsms;
