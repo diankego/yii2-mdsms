@@ -139,7 +139,7 @@ class Sms{
 	 * @param {string} $url 请求地址
 	 * @param {array|string} [$data=null] post数据
 	 * @param {string} [$useragent=null] 模拟浏览器用户代理信息
-	 * @return {string} 返回获取的数据
+	 * @return {string}
 	 */
 	private function curl($url, $data = null, $useragent = null){
 		$curl = curl_init();
