@@ -12,7 +12,7 @@
 namespace yii\mdsms;
 
 use yii\base\ErrorException;
-use yii\sms\models\Sms;
+use yii\mdsms\models\Sms;
 
 class SmsSdk{
 
