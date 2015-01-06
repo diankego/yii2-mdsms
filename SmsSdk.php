@@ -2,8 +2,8 @@
 /*!
  * yii2 extension - 漫道短信发送接口
  * xiewulong <xiewulong@vip.qq.com>
- * https://github.com/diankego/yii2-smsMD
- * https://raw.githubusercontent.com/diankego/yii2-smsMD/master/LICENSE
+ * https://github.com/diankego/yii2-mdsms
+ * https://raw.githubusercontent.com/diankego/yii2-mdsms/master/LICENSE
  * create: 2014/12/28
  * update: 2015/1/6
  * version: 0.0.1
@@ -48,10 +48,11 @@ class SmsSdk{
 	 * @method send
 	 * @since 0.0.1
 	 * @param {array} $data 发送所需数据, 包括手机(支持10000个手机号, 建议<=5000, 多个以英文逗号隔开)和内容(支持长短信, utf8编码)
-	 * @return {array}
-	 * @example Yii::$app->sms->send();
+	 * @param {number} $uid 操作者, 0系统, >0用户id
+	 * @return {boolean}
+	 * @example Yii::$app->sms->send($data, $uid);
 	 */
-	public function send($data){
+	public function send($data, $uid = 0){
 		if(empty($data)){
 			throw new ErrorException('Mobile and content must be required');
 		}
@@ -62,6 +63,7 @@ class SmsSdk{
 			$sms = new Sms;
 			$sms->phone = $_phone;
 			$sms->content = $content;
+			$sms->uid = $uid;
 			$sms->status = reset(simplexml_load_string($this->curl($this->api, $this->completeParams(http_build_query([
 				'sn' => $this->sn,
 				'pwd' => $this->getPwd(),
@@ -81,7 +83,7 @@ class SmsSdk{
 
 	/**
 	 * 完善参数
-	 * @method send
+	 * @method completeParams
 	 * @since 0.0.1
 	 * @param {string} $query query string
 	 * @return {string}
