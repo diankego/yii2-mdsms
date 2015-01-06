@@ -56,6 +56,7 @@ class SmsSdk{
 			throw new ErrorException('Mobile and content must be required');
 		}
 		$status = true;
+		$time = time();
 		foreach($data as $phone => $content){
 			$_phone = $this->formatMobile($phone);
 			$sms = new Sms;
@@ -64,15 +65,17 @@ class SmsSdk{
 			$sms->status = reset(simplexml_load_string($this->curl($this->api, $this->completeParams(http_build_query([
 				'sn' => $this->sn,
 				'pwd' => $this->getPwd(),
-				'phone' => $_phone,
+				'mobile' => $_phone,
 				'content' => $content,
 			]))), 'SimpleXMLElement', LIBXML_NOCDATA));
 			$sms->message = $this->getMessage($sms->status);
+			$sms->created_at = $time;
 			$sms->save();
 			if($sms->status != $this->rrid){
 				$status = false;
 			}
 		}
+
 		return $status;
 	}
 
