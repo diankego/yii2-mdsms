@@ -5,15 +5,16 @@
  * https://github.com/diankego/yii2-smsMD
  * https://raw.githubusercontent.com/diankego/yii2-smsMD/master/LICENSE
  * create: 2014/12/28
- * update: 2014/12/30
+ * update: 2015/1/6
  * version: 0.0.1
  */
 
 namespace yii\mdsms;
 
 use yii\base\ErrorException;
+use yii\mdsms\models\Sms.php;
 
-class Sms{
+class SmsSdk{
 
 	//接口地址
 	private $api = 'http://sdk.entinfo.cn:8061/webservice.asmx/mdsmssend';
@@ -57,22 +58,28 @@ class Sms{
 		if(empty($data)){
 			throw new ErrorException('Mobile and content must be required');
 		}
-		foreach($data as $mobile => $content){
-			$_mobile = $this->formatMobile($mobile);
-			$this->data[$mobile] = [
+		$status = true;
+		foreach($data as $phone => $content){
+			$_phone = $this->formatMobile($phone);
+			$this->data[$phone] = [
 				'status' => reset(simplexml_load_string($this->curl($this->api, $this->completeParams(http_build_query([
 					'sn' => $this->sn,
 					'pwd' => $this->getPwd(),
-					'mobile' => $_mobile,
+					'phone' => $_phone,
 					'content' => $content,
 				]))), 'SimpleXMLElement', LIBXML_NOCDATA)),
-				'mobile' => $_mobile,
+				'phone' => $_phone,
 				'content' => $content,
-				'sendtime' => time(),
 			];
-			$this->data[$mobile]['message'] = $this->getMessage($this->data[$mobile]['status']);
+			$this->data[$phone]['message'] = $this->getMessage($this->data[$phone]['status']);
+			$sms = new Sms;
+			$sms->attributes = $this->data[$phone];
+			$sms->save();
+			if($this->data[$phone]['status'] != $this->rrid){
+				$status = false;
+			}
 		}
-		return $this->data;
+		return $status;
 	}
 
 	/**
