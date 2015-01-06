@@ -12,7 +12,7 @@
 namespace yii\mdsms;
 
 use yii\base\ErrorException;
-use yii\mdsms\models\Sms.php;
+use yii\sms\models\Sms;
 
 class SmsSdk{
 
@@ -24,9 +24,6 @@ class SmsSdk{
 
 	//密码
 	public $password;
-
-	//发送所需数据, 包括手机(支持10000个手机号, 建议<=5000, 多个以英文逗号隔开)和内容(支持长短信, utf8编码)
-	private $data = [];
 
 	//扩展码, 可选
 	private $ext;
@@ -50,7 +47,7 @@ class SmsSdk{
 	 * 发送
 	 * @method send
 	 * @since 0.0.1
-	 * @param {array} $data 发送所需数据, 格式: ['手机号' => '内容']
+	 * @param {array} $data 发送所需数据, 包括手机(支持10000个手机号, 建议<=5000, 多个以英文逗号隔开)和内容(支持长短信, utf8编码)
 	 * @return {array}
 	 * @example Yii::$app->sms->send();
 	 */
@@ -61,21 +58,18 @@ class SmsSdk{
 		$status = true;
 		foreach($data as $phone => $content){
 			$_phone = $this->formatMobile($phone);
-			$this->data[$phone] = [
-				'status' => reset(simplexml_load_string($this->curl($this->api, $this->completeParams(http_build_query([
-					'sn' => $this->sn,
-					'pwd' => $this->getPwd(),
-					'phone' => $_phone,
-					'content' => $content,
-				]))), 'SimpleXMLElement', LIBXML_NOCDATA)),
+			$sms = new Sms;
+			$sms->phone = $_phone;
+			$sms->content = $content;
+			$sms->status = reset(simplexml_load_string($this->curl($this->api, $this->completeParams(http_build_query([
+				'sn' => $this->sn,
+				'pwd' => $this->getPwd(),
 				'phone' => $_phone,
 				'content' => $content,
-			];
-			$this->data[$phone]['message'] = $this->getMessage($this->data[$phone]['status']);
-			$sms = new Sms;
-			$sms->attributes = $this->data[$phone];
+			]))), 'SimpleXMLElement', LIBXML_NOCDATA));
+			$sms->message = $this->getMessage($sms->status);
 			$sms->save();
-			if($this->data[$phone]['status'] != $this->rrid){
+			if($sms->status != $this->rrid){
 				$status = false;
 			}
 		}
