@@ -5,7 +5,7 @@
  * https://github.com/diankego/yii2-mdsms
  * https://raw.githubusercontent.com/diankego/yii2-mdsms/master/LICENSE
  * create: 2014/12/28
- * update: 2015/1/6
+ * update: 2015/1/8
  * version: 0.0.1
  */
 
@@ -14,7 +14,7 @@ namespace yii\mdsms;
 use yii\base\ErrorException;
 use yii\mdsms\models\Sms;
 
-class SmsSdk{
+class Manager{
 
 	//接口地址
 	private $api = 'http://sdk.entinfo.cn:8061/webservice.asmx/mdsmssend';
