@@ -2,7 +2,7 @@
 
 use yii\db\Schema;
 
-class m150107_171204_sms extends \yii\db\Migration{
+class m150106_010000_sms extends \yii\db\Migration{
 
 	public function up(){
 		$tableOptions = 'engine=innodb character set utf8';
