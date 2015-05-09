@@ -128,6 +128,7 @@ class Manager{
 	 * 获取信息
 	 * @method getMessage
 	 * @since 0.0.1
+	 * @param {string} $status 状态码
 	 * @return {string}
 	 */
 	private function getMessage($status){
