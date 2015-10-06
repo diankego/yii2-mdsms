@@ -5,7 +5,7 @@
  * https://github.com/diankego/yii2-mdsms
  * https://raw.githubusercontent.com/diankego/yii2-mdsms/master/LICENSE
  * create: 2014/12/28
- * update: 2015/1/8
+ * update: 2015/10/6
  * version: 0.0.1
  */
 
@@ -50,7 +50,7 @@ class Manager{
 	 * @param {array} $data 发送所需数据, 包括手机(支持10000个手机号, 建议<=5000, 多个以英文逗号隔开)和内容(支持长短信, utf8编码)
 	 * @param {number} $uid 操作者, 0系统, >0用户id
 	 * @return {boolean}
-	 * @example Yii::$app->sms->send($data, $uid);
+	 * @example \Yii::$app->sms->send($data, $uid);
 	 */
 	public function send($data, $uid = 0){
 		if(empty($data)){
