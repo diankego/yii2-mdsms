@@ -12,7 +12,7 @@ class m150106_010000_sms extends \yii\db\Migration {
 
 		$this->createTable('{{%sms}}', [
 			'id' => Schema::TYPE_PK . ' comment "id"',
-			'mobile' => Schema::TYPE_TEXT . ' not null comment "移动号码, 多个以英文逗号隔开, <=10000"',
+			'mobile' => Schema::TYPE_TEXT . ' not null comment "移动号码, 多个以英文逗号隔开, <=10000个"',
 			'content' => Schema::TYPE_STRING . ' not null comment "内容"',
 			'status' => Schema::TYPE_INTEGER . ' not null default 1 comment "发送状态"',
 			'message' => Schema::TYPE_STRING . '(50) comment "状态信息"',
