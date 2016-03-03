@@ -129,7 +129,7 @@ class Manager {
 			$this->messages = require(__DIR__ . '/messages.php');
 		}
 
-		return isset($this->messages[$status]) ? $this->messages[$status] : null;
+		return isset($this->messages[$status]) ? $this->messages[$status] : "Error: $status";
 	}
 
 	/**
